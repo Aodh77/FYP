@@ -21,25 +21,7 @@ public class Timer : MonoBehaviour
         
     }
 
-    /*
-    void Update()
-    {
-       
-        float t = Time.time - startTime;
-        if (finnished)
-        {
-            
-            Cursor.lockState = CursorLockMode.None;
-            return;
-        }
 
-        string minutes = ((int)t / 60).ToString();
-        string seconds = (t % 60).ToString("f2");
-
-        timer.text = minutes + ":" + seconds;
-        
-    }
-    */
 
 
     public void Finnish()

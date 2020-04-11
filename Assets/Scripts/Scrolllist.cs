@@ -11,13 +11,7 @@ public class Scrolllist : MonoBehaviour {
 	public GameObject LoadingText;
 	public bool loading = true;
 
-	void Update () {
-	
-		if (!loading)
-			LoadingText.SetActive (false);
-		else
-			LoadingText.SetActive (true);
-	}
+
 
 	public void getScrollEntrys()
 	{
