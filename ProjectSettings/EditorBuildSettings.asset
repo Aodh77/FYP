@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Leaderboard.unity
     guid: de070c32c45be634386acb8723ed51d2
+  - enabled: 1
+    path: Assets/Scenes/OnlineGame.unity
+    guid: 765de153f4d48aa419c3b6dd1ced21b8
   m_configObjects: {}

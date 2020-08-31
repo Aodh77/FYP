@@ -4,22 +4,46 @@ using UnityEngine;
 
 public class Interact2 : MonoBehaviour
 {
-    public Transform playerPos;
+    [SerializeField] Camera cam;
+    [SerializeField] float maxGrabDistance = 10f, throwForce = 20f, lerpSpeed = 10f;
+    [SerializeField] Transform objectHolder;
 
-     void OnMouseDown()
+    Rigidbody grabbedRB;
+
+    void Update()
     {
-        GetComponent<BoxCollider>().enabled = false;
-        GetComponent<Rigidbody>().useGravity = false;
-        this.transform.position = playerPos.position;
-        this.transform.parent = GameObject.Find("ObjectSpot").transform;
+        if (grabbedRB)
+        {
+            grabbedRB.MovePosition(Vector3.Lerp(grabbedRB.position, objectHolder.transform.position, Time.deltaTime * lerpSpeed));
 
-    }
+            if (Input.GetMouseButtonDown(0))
+            {
+                grabbedRB.isKinematic = false;
+                grabbedRB.AddForce(cam.transform.forward * throwForce, ForceMode.VelocityChange);
+                grabbedRB = null;
+            }
+        }
 
-     void OnMouseUp()
-    {
-        this.transform.parent = null;
-        GetComponent<BoxCollider>().enabled = false;
-        GetComponent<Rigidbody>().useGravity = false;
-        
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (grabbedRB)
+            {
+                grabbedRB.isKinematic = false;
+                grabbedRB = null;
+            }
+            else
+            {
+                RaycastHit hit;
+                Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
+                if (Physics.Raycast(ray, out hit, maxGrabDistance))
+                {
+                    grabbedRB = hit.collider.gameObject.GetComponent<Rigidbody>();
+                    if (grabbedRB)
+                    {
+                        grabbedRB.isKinematic = true;
+                    }
+                }
+            }
+        }
     }
 }
